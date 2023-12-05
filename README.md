@@ -83,14 +83,4 @@ The script outputs a CSV file (`Prediction.csv`) with the predicted success stat
 
 - The synthetic test data (`stars.csv`) is generated for model testing purposes.
 - The minimum review threshold (`min_thresh`) is set to 21, assuming 3 reviews per day.
-- The model predicts success based on an average review rating over a specified period.
-
-Certainly! If you want to use a Python virtual environment to encapsulate the dependencies for this project, you can add the following steps to the README file:
-
----
-
-# Restaurant Success Prediction Model
-
-## Overview
-
-This Python script is designed to predict the success of restaurants based on Yelp reviews. The model uses an AutoRegressive (AR) time series analysis approach to forecast future restaurant success. The main goal is to predict whether a restaurant is likely to close within a 4-year period.
+- The model predicts success based on an average review rating over a specified period
