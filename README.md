@@ -11,7 +11,7 @@ This Python script is designed to predict the success of restaurants based on Ye
 - **yelp_training_set_review.csv**: Input file containing Yelp reviews.
 - **stars.csv**: Synthetic test data for the stars attribute.
 - **yelp_training_set_business_corrected.csv**: Output file with corrected business data.
-- **Prediction.csv**: Output file with predictions for restaurant success.
+- *Corresponding files can be downloaded [here](https://drive.google.com/drive/folders/1aXe0SP_RnQmtlpT7Kd4X_IaijVj_X6BW?usp=share_link)*
 
 ## Dependencies
 
