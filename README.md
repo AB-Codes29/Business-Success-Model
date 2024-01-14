@@ -1,86 +1,120 @@
-# Restaurant Success Prediction Model
+# Overview
 
-## Overview
+This repository contains the code for a Business Success Model that integrates data analysis, machine learning, and natural language processing techniques. The model aims to predict and analyze the success of businesses, leveraging the Yelp dataset, including information about businesses, reviews, and users.
 
-This Python script is designed to predict the success of restaurants based on Yelp reviews. The model uses an AutoRegressive (AR) time series analysis approach to forecast future restaurant success. The main goal is to predict whether a restaurant is likely to close within a 4-year period.
+# Jupyter Notebooks
 
-## Files
+## 1. `Business_Success_Model.ipynb`
 
-- **Business_Success_Model.ipynb**: The main Jupyter Notebook containing the code.
-- **yelp_training_set_business.csv**: Input file containing business data from Yelp.
-- **yelp_training_set_review.csv**: Input file containing Yelp reviews.
-- **stars.csv**: Synthetic test data for the stars attribute.
-- **yelp_training_set_business_corrected.csv**: Output file with corrected business data.
-- *Corresponding files can be downloaded [here](https://drive.google.com/drive/folders/1aXe0SP_RnQmtlpT7Kd4X_IaijVj_X6BW?usp=share_link)*
+### Notebook Contents
 
-## Dependencies
+- **Data Preprocessing:**
+  - Loading and preprocessing the Yelp dataset.
+  - Handling null values, exploring data distribution, and merging relevant dataframes.
 
-The script requires the following Python libraries:
+- **Fine-tuning BERT for Sequence Classification:**
+  - Fine-tuning the BERT (Bidirectional Encoder Representations from Transformers) model for sequence classification to predict restaurant ratings based on customer reviews.
 
-- pandas
-- numpy
-- statsmodels
+- **Predicting and Aggregating Ratings:**
+  - Utilizing the fine-tuned BERT model to predict ratings for a batch of texts.
+  - Aggregating predictions and saving them to a CSV file.
 
-## Setup
+- **Creating the Final Dataset for Classifier Input:**
+  - Combining predicted ratings with the original review data.
+  - Calculating final review ratings and aggregating business-related information.
 
-1. **Create a Virtual Environment:**
+## 2. `Train_and_evaluate_classifiers.ipynb`
+
+### Notebook Contents
+
+- **Importing Necessary Libraries:**
+  - Importing libraries for classification and evaluation.
+  - Mounting Google Drive to access files.
+
+- **Data Loading:**
+  - Loading the final dataset generated from the Business_Success_Model notebook.
+
+- **Training and Evaluating Classifiers:**
+  - Training Random Forest, XGBoost, and Gaussian Mixture Model (GMM) classifiers.
+  - Evaluating classifiers using metrics such as accuracy, precision, recall, and F1 score.
+  - Extracting and plotting feature importance for Random Forest and XGBoost.
+
+# Results
+
+   - ## Gaussian Mixture Model (GMM) Metrics:
+
+      - **Accuracy:** 0.397
+      - **Precision:** 0.751
+      - **Recall:** 0.295
+      - **F1 Score:** 0.424
+      - **Confusion Matrix:**
+        | Actual\Predicted | Positive | Negative |
+        |------------------|----------|----------|
+        | Positive         | 420      | 176      |
+        | Negative         | 1272     | 532      |
+
+  - ## Random Forest Metrics:
+
+    - **Accuracy:** 0.954
+    - **Precision:** 0.948
+    - **Recall:** 0.993
+    - **F1 Score:** 0.970
+    - **Confusion Matrix:**
+      | Actual\Predicted | Positive | Negative |
+      |------------------|----------|----------|
+      | Positive         | 497      | 99       |
+      | Negative         | 12       | 1792     |
+
+    - **Random Forest Feature Importance:**
+      | Rank_RF | Feature               | Importance |
+      |---------|-----------------------|------------|
+      | 1       | std_review_ratings    | 0.165      |
+      | 2       | mean_review_ratings   | 0.152      |
+      | 3       | useful_votes_mean     | 0.145      |
+      | 4       | review_count          | 0.135      |
+      | 5       | cool_votes_mean       | 0.131      |
+      | 6       | funny_votes_mean      | 0.126      |
+      | 7       | business_rating       | 0.081      |
+      | 8       | median_review_ratings | 0.064      |
+
+- ## XGBoost Metrics:
+  
+    - **Accuracy:** 0.853
+    - **Precision:** 0.857
+    - **Recall:** 0.965
+    - **F1 Score:** 0.908
+    - **Confusion Matrix:**
+      | Actual\Predicted | Positive | Negative |
+      |------------------|----------|----------|
+      | Positive         | 306      | 290      |
+      | Negative         | 63       | 1741     |
+
+    - **XGBoost Feature Importance:**
+      | Rank_XGB | Feature               | Importance |
+      |----------|-----------------------|------------|
+      | 1        | business_rating       | 0.179      |
+      | 2        | funny_votes_mean      | 0.124      |
+      | 3        | cool_votes_mean       | 0.120      |
+      | 4        | useful_votes_mean     | 0.118      |
+      | 5        | review_count          | 0.117      |
+      | 6        | median_review_ratings | 0.117      |
+      | 7        | mean_review_ratings   | 0.114      |
+      | 8        | std_review_ratings    | 0.112      |
+
+# Instructions
+
+1. **Clone the repository:**
 
    ```bash
-   python -m venv venv
-   ```
+   git clone https://github.com/AB-Codes29/business_success_model.git
 
-2. **Activate the Virtual Environment:**
+2. **Additional Resources**
 
-   - On Windows:
+- **Yelp Training Sets:**
+  - [Business Data](https://drive.google.com/file/d/1nEZMt7hZdnoTmi4nFROPSC6COo7xiusm/view?usp=sharing)
+  - [Review Data](https://drive.google.com/file/d/1CMIJUMffIbmZzjjC_GryjUImZHp3QtGj/view?usp=sharing)
+  - [User Data](https://drive.google.com/file/d/1DtqKMqtTEfQKFJiKEUavuMR5VmVDk6dR/view?usp=sharing)
 
-     ```bash
-     venv\Scripts\activate
-     ```
-
-   - On macOS/Linux:
-
-     ```bash
-     source venv/bin/activate
-     ```
-
-Install the dependencies using:
-
-```bash
-pip install pandas numpy statsmodels
-```
-
-## How to Run
-
-1. Open the Jupyter Notebook `Business_Success_Model.ipynb` in a Jupyter environment.
-2. Ensure that the required input files (`yelp_training_set_business.csv`, `yelp_training_set_review.csv`, and `stars.csv`) are in the same directory as the notebook.
-3. Run the cells in the notebook sequentially.
-
-## Code Structure
-
-1. **Data Preprocessing**
-    - Reads business and review data from CSV files.
-    - Corrects the `review_count` attribute in the business data.
-    - Handles duplicates in the datasets.
-
-2. **Time Series Analysis**
-    - Utilizes AutoRegressive (AR) modeling for time series analysis.
-    - Filters businesses based on a minimum review threshold.
-    - Segregates businesses based on review counts.
-
-3. **Prediction**
-    - Builds an AR model for each restaurant based on historical review ratings.
-    - Averages the last year's reviews to predict future success.
-    - Classifies restaurants as "Successful" or "Unsuccessful" based on a threshold.
-
-4. **Output**
-    - Generates a CSV file (`Prediction.csv`) containing the predicted success of each restaurant.
-
-## Results
-
-The script outputs a CSV file (`Prediction.csv`) with the predicted success status of each restaurant based on the given criteria. The file includes business IDs, review stars, and the predicted success label.
-
-## Notes
-
-- The synthetic test data (`stars.csv`) is generated for model testing purposes.
-- The minimum review threshold (`min_thresh`) is set to 21, assuming 3 reviews per day.
-- The model predicts success based on an average review rating over a specified period
+- **Predictions and Models:**
+  - [Predictions CSV](https://drive.google.com/file/d/18eu8ibTyaM5ClAb5MWIncKdsBjZCWjuc/view?usp=sharing)
+  - [BERT Model](https://drive.google.com/drive/folders/1wsGkay3O__A3oWPiIoMlHd86-loa2l_h?usp=sharing)
